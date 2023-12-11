@@ -20,14 +20,6 @@ app.get('/employees', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
 // Define a route that handles HTTP GET requests to '/employee/:employeeID'.
 app.get(`/employees/:employeeID`, (req, res) => {
     // Extract the 'employeeID' parameter from the request URL.
@@ -35,6 +27,7 @@ app.get(`/employees/:employeeID`, (req, res) => {
   
     // Find the employee with the specified 'employeeID' in the data.
     const employee = employeesData.employees.find(emp => emp.employeeID === parseInt(employeeID));
+    //const employee = employeesData.find(emp => emp.employeeID === parseInt(employeeID));
   
  // Check if the employee is found.
 
