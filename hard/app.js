@@ -34,7 +34,7 @@ app.get(`/employees/:employeeID`, (req, res) => {
 
 if (employee) {
   // Respond with the JSON representation of the specific employee's data.
-  return res.json(employee);
+  return res.json(employeesData.employees);
 } else {
   // If the employee is not found, send a 404 Not Found status and an error message in JSON format.
   return res.status(404).json({ error: 'Employee not found' });
