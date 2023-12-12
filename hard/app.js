@@ -4,42 +4,39 @@ const app = express();
 const port = 5000;
 
 // Import the employee data from the 'employees.json' file.
-const employeesData = require('./employees.json');
+const employeeData = require('./employee.json');
 
 // Define a route that handles HTTP GET requests to '/' or home
 app.get('/', (req, res) => {
   res.send(`running`);
 });
 
-// path for employees
-app.get('/employees', (req, res) => {
-    // Respond with all json of employees' data
-    res.json(employeesData);
+
+
+// // Route to get all employees
+app.get('/employee', (req, res) => {
+  res.json(employeeData);
 });
 
+// Route to get an employee by ID 
+app.get('/employee/:employeeID', (req, res) => {
+// Extract employeeID from the route parameter
+const employeeID = req.params.employeeID;
+// finding the employee in the employeeData array
+const employee = employeeData.find(emp => emp.employeeID.toString() === employeeID);
+//Checks in Employee was found
 
-
-
-// Define a route that handles HTTP GET requests to '/employee/:employeeID'.
-app.get(`/employees/:employeeID`, (req, res) => {
-    // Extract the 'employeeID' parameter from the request URL.
-    const employeeID = req.params.employeeID;
-  
-    // Find the employee with the specified 'employeeID' in the data.
-    const employee = employeesData.employees.find(emp => emp.employeeID === parseInt(employeeID));
-    //const employee = employeesData.find(emp => emp.employeeID === parseInt(employeeID));
-  
- // Check if the employee is found.
 
 
 if (employee) {
-  // Respond with the JSON representation of the specific employee's data.
-  return res.json(employeesData.employees);
+  res.json(employee);
+
 } else {
-  // If the employee is not found, send a 404 Not Found status and an error message in JSON format.
   return res.status(404).json({ error: 'Employee not found' });
-};}
   
+}
+});
+
 
 
 
@@ -52,6 +49,6 @@ if (employee) {
 
 
 // Start the server and listen on the specified port.
-,app).listen(port, () => {
+app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
